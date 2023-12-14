@@ -25,7 +25,7 @@
                 <input class="form-control" type="Password" id="Password" name="Password">
             </div>
             <div class="text-center">
-                <button type="button" id="reg-btn"  class="btn btn-primary" onclick="registerUser()"></button>
+                <button type="button" id="reg-btn"  class="btn btn-primary" onclick="registerUser()">Register</button>
             </div>
         </form>
     </div>
@@ -37,13 +37,34 @@ function registerUser(){
     Name=document.getElementById("name").value
     Email=document.getElementById("Email").value
     Password=document.getElementById("Password").value
+    console.log(Name+Email+Password)
+    let user_records=new Array()
+    user_records=JSON.parse(localStorage.getItem("users"))?
+                 JSON.parse(localStorage.getItem("users")):[]
+                 if(user_records.some((v)=>
+                 {
+                     return v.Email==Email
+                 }
+                 )){
+                 alert("your Account already exits!! go to login")
+                 location.href="login.html";
+                 }
+                 else{
+                 user_records.push({
+                 "Name":Name,
+                 "Email":Email,
+                 "Password":Password
+                 })
 
-    localStorage.setItem("Name",Name);
-    localStorage.setItem("Email",Email);
-    localStorage.setItem("Password",Password);
-    console.log(localStorage.getItem("Name"))
-    console.log(localStorage.getItem("Email"))
-    console.log(localStorage.getItem("Password"))
+                 localStorage.setItem("users",JSON.stringify(user_records))
+                 }
+
+<!--    localStorage.setItem("Name",Name);-->
+<!--    localStorage.setItem("Email",Email);-->
+<!--    localStorage.setItem("Password",Password);-->
+<!--    console.log(localStorage.getItem("Name"))-->
+<!--    console.log(localStorage.getItem("Email"))-->
+<!--    console.log(localStorage.getItem("Password"))-->
 }
 </script>
 
