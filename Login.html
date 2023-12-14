@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <form>
+            <div class="form-group">
+                <label>Email :</label>
+                <input class="form-control" type="Email" id="Email" name="Email">
+            </div>
+            <div class="form-group">
+                <label>Password :</label>
+                <input class="form-control" type="Password" id="Password" name="Password">
+            </div>
+            <div class="text-center">
+                <button type="button" id="reg-btn"  class="btn btn-primary" onclick="LoginUser()">Login</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script >
+function LoginUser(){
+    let Email,Password;
+    Email=document.getElementById("Email").value
+    Password=document.getElementById("Password").value
+
+    let user_records=new Array()
+    user_records=JSON.parse(localStorage.getItem("users"))?
+                 JSON.parse(localStorage.getItem("users")):[]
+                 if(user_records.some((v)=>{
+                 return v.Email==Email && v.Password==Password
+                 })){
+                 alert("login Successful!!")
+                 let current_user=user_records.filter((v)=>{
+                    return v.Email==Email && v.Password==Password
+                    })[0]
+                    localStorage.setItem("Name",current_user.Name);
+                    localStorage.setItem("Email",current_user.Email);
+                 location.href="profile.html";
+                 }
+                 else{
+                 alert("login Fail!!")
+                 }
+                 }
+</script>
+
+</body>
+</html>
